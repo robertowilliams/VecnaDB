@@ -9,8 +9,8 @@ from typing import Sequence, Union
 
 from alembic import op
 
-from cognee.infrastructure.databases.relational.get_relational_engine import get_relational_engine
-from cognee.modules.pipelines.models.PipelineRun import PipelineRun, PipelineRunStatus
+from vecnadb.infrastructure.databases.relational.get_relational_engine import get_relational_engine
+from vecnadb.modules.pipelines.models.PipelineRun import PipelineRun, PipelineRunStatus
 
 
 # revision identifiers, used by Alembic.

@@ -8,9 +8,9 @@ from distributed.signal import QueueSignal
 from distributed.modal_image import image
 from distributed.queues import add_nodes_and_edges_queue
 
-from cognee.shared.logging_utils import get_logger
-from cognee.infrastructure.databases.graph import get_graph_engine
-from cognee.infrastructure.databases.graph.config import get_graph_config
+from vecnadb.shared.logging_utils import get_logger
+from vecnadb.infrastructure.databases.graph import get_graph_engine
+from vecnadb.infrastructure.databases.graph.config import get_graph_config
 
 logger = get_logger("graph_saving_worker")
 

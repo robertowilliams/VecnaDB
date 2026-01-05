@@ -1,9 +1,10 @@
 [project]
-name = "cognee"
+name = "vecnadb"
 
-version = "0.5.1"
-description = "Cognee - is a library for enriching LLM context with a semantic layer for better understanding and reasoning."
+version = "0.1.0"
+description = "VecnaDB - An ontology-native hybrid vector-graph AI database where meaning lives in vectors and truth lives in structure."
 authors = [
+    { name = "Roberto" },
     { name = "Vasilije Markovic" },
     { name = "Boris Arzentar" },
 ]
@@ -158,11 +159,11 @@ monitoring = ["sentry-sdk[fastapi]>=2.9.0,<3", "langfuse>=2.32.0,<3"]
 docling = ["docling>=2.54", "transformers>=4.55"]
 
 [project.urls]
-Homepage = "https://www.cognee.ai"
-Repository = "https://github.com/topoteretes/cognee"
+Homepage = "https://github.com/yourusername/vecnadb"
+Repository = "https://github.com/yourusername/vecnadb"
 
 [project.scripts]
-cognee-cli = "cognee.cli._cognee:main"
+vecnadb-cli = "vecnadb.cli._vecnadb:main"
 
 [build-system]
 requires = ["hatchling"]
@@ -188,7 +189,7 @@ exclude = [
 ]
 
 [tool.hatch.build.targets.wheel]
-packages = ["cognee", "distributed"]
+packages = ["vecnadb", "distributed"]
 
 [tool.ruff]
 line-length = 100
@@ -196,11 +197,11 @@ exclude = [
     "migrations/",  # Ignore migrations directory
     "notebooks/",       # Ignore notebook files
     "build/",           # Ignore build directory
-    "cognee/pipelines.py",
-    "cognee/modules/users/models/Group.py",
-    "cognee/modules/users/models/ACL.py",
-    "cognee/modules/pipelines/models/Task.py",
-    "cognee/modules/data/models/Dataset.py"
+    "vecnadb/pipelines.py",
+    "vecnadb/modules/users/models/Group.py",
+    "vecnadb/modules/users/models/ACL.py",
+    "vecnadb/modules/pipelines/models/Task.py",
+    "vecnadb/modules/data/models/Dataset.py"
 ]
 
 [tool.ruff.lint]

@@ -9,7 +9,7 @@ Create Date: 2025-07-24 17:11:52.174737
 import os
 from typing import Sequence, Union
 
-from cognee.infrastructure.databases.graph.kuzu.kuzu_migrate import (
+from vecnadb.infrastructure.databases.graph.kuzu.kuzu_migrate import (
     kuzu_migration,
     read_kuzu_storage_version,
 )
@@ -25,7 +25,7 @@ depends_on: Union[str, Sequence[str], None] = None
 def upgrade() -> None:
     # This migration is only for multi-user Cognee mode
     if os.getenv("ENABLE_BACKEND_ACCESS_CONTROL", "false").lower() == "true":
-        from cognee.base_config import get_base_config
+        from vecnadb.base_config import get_base_config
 
         base_config = get_base_config()
 
@@ -49,7 +49,7 @@ def upgrade() -> None:
                         overwrite=True,
                     )
     else:
-        from cognee.infrastructure.databases.graph import get_graph_config
+        from vecnadb.infrastructure.databases.graph import get_graph_config
 
         graph_config = get_graph_config()
         if graph_config.graph_database_provider.lower() == "kuzu":

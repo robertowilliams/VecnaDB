@@ -1,0 +1,575 @@
+# VecnaDB Core Ontology
+# Version: 1.0.0
+#
+# This is the foundational ontology for VecnaDB that defines base entity and relation types.
+# All domain-specific ontologies should extend this core ontology.
+
+name: "VecnaDB Core Ontology"
+version: "1.0.0"
+description: "Core ontology providing foundational entity and relation types for VecnaDB"
+
+# ============================================================================
+# ENTITY TYPES
+# ============================================================================
+
+entity_types:
+  # Base Entity (Abstract)
+  Entity:
+    description: "Abstract base type for all knowledge entities"
+    abstract: true
+    properties:
+      name:
+        type: string
+        required: true
+        indexed: true
+        embeddable: true
+        description: "Primary name or title of the entity"
+        constraints:
+          - type: length
+            parameters:
+              min: 1
+              max: 500
+            error_message: "Name must be between 1 and 500 characters"
+
+      description:
+        type: string
+        required: false
+        embeddable: true
+        description: "Textual description of the entity"
+
+      aliases:
+        type: list
+        required: false
+        embeddable: true
+        description: "Alternative names for this entity"
+
+    required_properties:
+      - name
+
+    embedding_requirements:
+      required_types:
+        - content
+      embeddable_properties:
+        - name
+        - description
+        - aliases
+      min_embeddings: 1
+
+  # Concept
+  Concept:
+    description: "Abstract concept, idea, or category"
+    inherits_from:
+      - Entity
+    properties:
+      definition:
+        type: string
+        required: false
+        embeddable: true
+        description: "Formal definition of the concept"
+
+      category:
+        type: string
+        required: false
+        indexed: true
+        description: "Category or domain this concept belongs to"
+
+    required_properties:
+      - name
+      - definition
+
+  # Document
+  Document:
+    description: "Source document containing information"
+    inherits_from:
+      - Entity
+    properties:
+      content:
+        type: string
+        required: true
+        embeddable: true
+        description: "Full text content of the document"
+
+      content_type:
+        type: string
+        required: true
+        indexed: true
+        description: "MIME type or format of the document"
+        constraints:
+          - type: enum
+            parameters:
+              values:
+                - text/plain
+                - text/markdown
+                - text/html
+                - application/pdf
+                - application/json
+                - text/csv
+                - application/code
+            error_message: "Invalid content type"
+
+      source_uri:
+        type: string
+        required: false
+        description: "Original URI or file path of the document"
+
+      language:
+        type: string
+        required: false
+        description: "Primary language of the document (ISO 639-1 code)"
+
+      created_date:
+        type: datetime
+        required: false
+        description: "Original creation date of the document"
+
+      word_count:
+        type: integer
+        required: false
+        description: "Approximate word count"
+
+    required_properties:
+      - name
+      - content
+      - content_type
+
+    embedding_requirements:
+      required_types:
+        - content
+        - summary
+      embeddable_properties:
+        - name
+        - content
+        - description
+      min_embeddings: 1
+
+  # Person
+  Person:
+    description: "Individual human being"
+    inherits_from:
+      - Entity
+    properties:
+      full_name:
+        type: string
+        required: true
+        embeddable: true
+        description: "Complete name of the person"
+
+      email:
+        type: string
+        required: false
+        indexed: true
+        description: "Email address"
+        constraints:
+          - type: regex
+            parameters:
+              pattern: "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"
+            error_message: "Invalid email format"
+
+      occupation:
+        type: string
+        required: false
+        embeddable: true
+        description: "Professional occupation or role"
+
+    required_properties:
+      - full_name
+
+  # Organization
+  Organization:
+    description: "Organization, company, or institution"
+    inherits_from:
+      - Entity
+    properties:
+      legal_name:
+        type: string
+        required: true
+        description: "Official legal name of the organization"
+
+      organization_type:
+        type: string
+        required: false
+        indexed: true
+        description: "Type of organization"
+        constraints:
+          - type: enum
+            parameters:
+              values:
+                - company
+                - nonprofit
+                - government
+                - educational
+                - other
+            error_message: "Invalid organization type"
+
+      founded_date:
+        type: datetime
+        required: false
+        description: "Date the organization was founded"
+
+      website:
+        type: string
+        required: false
+        description: "Official website URL"
+
+    required_properties:
+      - legal_name
+
+  # Location
+  Location:
+    description: "Physical or virtual location"
+    inherits_from:
+      - Entity
+    properties:
+      address:
+        type: string
+        required: false
+        description: "Street address"
+
+      city:
+        type: string
+        required: false
+        indexed: true
+        description: "City name"
+
+      country:
+        type: string
+        required: false
+        indexed: true
+        description: "Country name or code"
+
+      coordinates:
+        type: dict
+        required: false
+        description: "Geographic coordinates (latitude, longitude)"
+
+    required_properties:
+      - name
+
+  # Event
+  Event:
+    description: "Temporal event or occurrence"
+    inherits_from:
+      - Entity
+    properties:
+      event_type:
+        type: string
+        required: false
+        indexed: true
+        description: "Type or category of event"
+
+      start_time:
+        type: datetime
+        required: false
+        description: "Event start time"
+
+      end_time:
+        type: datetime
+        required: false
+        description: "Event end time"
+
+      duration:
+        type: integer
+        required: false
+        description: "Duration in seconds"
+
+    required_properties:
+      - name
+
+  # TextSegment
+  TextSegment:
+    description: "A segment or chunk of text from a larger document"
+    inherits_from:
+      - Entity
+    properties:
+      content:
+        type: string
+        required: true
+        embeddable: true
+        description: "Text content of this segment"
+
+      position_in_document:
+        type: integer
+        required: true
+        description: "Ordinal position within parent document"
+
+      segment_type:
+        type: string
+        required: false
+        indexed: true
+        description: "Type of segment (paragraph, section, sentence, etc.)"
+
+    required_properties:
+      - name
+      - content
+      - position_in_document
+
+# ============================================================================
+# RELATION TYPES
+# ============================================================================
+
+relation_types:
+  # IS_A (Type/Subtype)
+  IS_A:
+    description: "Type-subtype or instance-class relationship"
+    is_directed: true
+    transitive: true
+    symmetric: false
+    allowed_source_types:
+      - Entity
+    allowed_target_types:
+      - Entity
+    source_cardinality: "0..*"
+    target_cardinality: "0..*"
+    properties: {}
+    required_properties: []
+
+  # PART_OF (Composition)
+  PART_OF:
+    description: "Part-whole compositional relationship"
+    is_directed: true
+    transitive: true
+    symmetric: false
+    allowed_source_types:
+      - Entity
+    allowed_target_types:
+      - Entity
+    source_cardinality: "0..*"
+    target_cardinality: "0..*"
+    properties:
+      part_type:
+        type: string
+        required: false
+        description: "Type or nature of the part relationship"
+    required_properties: []
+
+  # RELATED_TO (Generic)
+  RELATED_TO:
+    description: "Generic semantic relationship"
+    is_directed: false
+    symmetric: true
+    transitive: false
+    allowed_source_types:
+      - Entity
+    allowed_target_types:
+      - Entity
+    source_cardinality: "0..*"
+    target_cardinality: "0..*"
+    properties:
+      relationship_type:
+        type: string
+        required: false
+        description: "Specific type of relationship"
+      strength:
+        type: float
+        required: false
+        description: "Strength or weight of the relationship (0.0-1.0)"
+        constraints:
+          - type: range
+            parameters:
+              min: 0.0
+              max: 1.0
+            error_message: "Strength must be between 0.0 and 1.0"
+    required_properties: []
+
+  # DEFINED_IN (Source Attribution)
+  DEFINED_IN:
+    description: "Entity is defined or described in a document"
+    is_directed: true
+    symmetric: false
+    transitive: false
+    allowed_source_types:
+      - Entity
+      - Concept
+    allowed_target_types:
+      - Document
+    source_cardinality: "0..*"
+    target_cardinality: "0..*"
+    properties:
+      page_number:
+        type: integer
+        required: false
+        description: "Page number where definition appears"
+      confidence:
+        type: float
+        required: false
+        description: "Confidence in this attribution (0.0-1.0)"
+    required_properties: []
+
+  # MENTIONS (Document Reference)
+  MENTIONS:
+    description: "Document mentions or references an entity"
+    is_directed: true
+    symmetric: false
+    transitive: false
+    allowed_source_types:
+      - Document
+      - TextSegment
+    allowed_target_types:
+      - Entity
+    source_cardinality: "0..*"
+    target_cardinality: "0..*"
+    properties:
+      mention_count:
+        type: integer
+        required: false
+        description: "Number of times entity is mentioned"
+      first_mention_position:
+        type: integer
+        required: false
+        description: "Character position of first mention"
+    required_properties: []
+
+  # PRECEDES (Temporal/Sequential)
+  PRECEDES:
+    description: "Temporal or sequential ordering relationship"
+    is_directed: true
+    symmetric: false
+    transitive: true
+    allowed_source_types:
+      - Entity
+    allowed_target_types:
+      - Entity
+    source_cardinality: "0..*"
+    target_cardinality: "0..*"
+    inverse_of: "FOLLOWS"
+    properties: {}
+    required_properties: []
+
+  # FOLLOWS (Inverse of PRECEDES)
+  FOLLOWS:
+    description: "Inverse of PRECEDES - comes after in temporal/sequential order"
+    is_directed: true
+    symmetric: false
+    transitive: true
+    allowed_source_types:
+      - Entity
+    allowed_target_types:
+      - Entity
+    source_cardinality: "0..*"
+    target_cardinality: "0..*"
+    inverse_of: "PRECEDES"
+    properties: {}
+    required_properties: []
+
+  # AUTHORED_BY (Authorship)
+  AUTHORED_BY:
+    description: "Document was authored or created by a person or organization"
+    is_directed: true
+    symmetric: false
+    transitive: false
+    allowed_source_types:
+      - Document
+    allowed_target_types:
+      - Person
+      - Organization
+    source_cardinality: "0..*"
+    target_cardinality: "0..*"
+    properties:
+      author_role:
+        type: string
+        required: false
+        description: "Role of the author (primary, contributor, editor, etc.)"
+      contribution_date:
+        type: datetime
+        required: false
+        description: "Date of contribution"
+    required_properties: []
+
+  # LOCATED_IN (Spatial)
+  LOCATED_IN:
+    description: "Entity is physically or logically located in a location"
+    is_directed: true
+    symmetric: false
+    transitive: true
+    allowed_source_types:
+      - Entity
+    allowed_target_types:
+      - Location
+    source_cardinality: "0..*"
+    target_cardinality: "0..*"
+    properties: {}
+    required_properties: []
+
+  # OCCURRED_AT (Event Location)
+  OCCURRED_AT:
+    description: "Event occurred at a specific location"
+    is_directed: true
+    symmetric: false
+    transitive: false
+    allowed_source_types:
+      - Event
+    allowed_target_types:
+      - Location
+    source_cardinality: "0..*"
+    target_cardinality: "0..*"
+    properties: {}
+    required_properties: []
+
+  # PARTICIPATED_IN (Event Participation)
+  PARTICIPATED_IN:
+    description: "Person or organization participated in an event"
+    is_directed: true
+    symmetric: false
+    transitive: false
+    allowed_source_types:
+      - Person
+      - Organization
+    allowed_target_types:
+      - Event
+    source_cardinality: "0..*"
+    target_cardinality: "0..*"
+    properties:
+      role:
+        type: string
+        required: false
+        description: "Role in the event (organizer, participant, speaker, etc.)"
+    required_properties: []
+
+  # WORKS_FOR (Employment)
+  WORKS_FOR:
+    description: "Person works for or is employed by an organization"
+    is_directed: true
+    symmetric: false
+    transitive: false
+    allowed_source_types:
+      - Person
+    allowed_target_types:
+      - Organization
+    source_cardinality: "0..*"
+    target_cardinality: "0..*"
+    properties:
+      position:
+        type: string
+        required: false
+        description: "Job title or position"
+      start_date:
+        type: datetime
+        required: false
+        description: "Employment start date"
+      end_date:
+        type: datetime
+        required: false
+        description: "Employment end date (null if current)"
+    required_properties: []
+
+# ============================================================================
+# GLOBAL CONSTRAINTS
+# ============================================================================
+
+global_constraints: []
+
+# ============================================================================
+# METADATA
+# ============================================================================
+
+metadata:
+  created_by: "VecnaDB Core Team"
+  license: "Apache-2.0"
+  documentation_url: "https://github.com/yourusername/vecnadb/docs/ontologies/core.md"
+  changelog:
+    - version: "1.0.0"
+      date: "2026-01-05"
+      changes:
+        - "Initial core ontology release"
+        - "Base entity types: Entity, Concept, Document, Person, Organization, Location, Event, TextSegment"
+        - "Base relation types: IS_A, PART_OF, RELATED_TO, DEFINED_IN, MENTIONS, PRECEDES, FOLLOWS, AUTHORED_BY, LOCATED_IN, OCCURRED_AT, PARTICIPATED_IN, WORKS_FOR"

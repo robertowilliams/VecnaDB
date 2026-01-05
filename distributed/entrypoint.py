@@ -1,10 +1,10 @@
 import os
 import asyncio
 
-import cognee
-from cognee.api.v1.prune import prune
-from cognee.shared.logging_utils import get_logger
-from cognee.modules.engine.operations.setup import setup
+import vecnadb
+from vecnadb.api.v1.prune import prune
+from vecnadb.shared.logging_utils import get_logger
+from vecnadb.modules.engine.operations.setup import setup
 
 from distributed.app import app
 from distributed.queues import add_nodes_and_edges_queue, add_data_points_queue
@@ -51,9 +51,9 @@ async def main():
     s3_bucket_path = os.getenv("S3_BUCKET_PATH")
     s3_data_path = "s3://" + s3_bucket_path
 
-    await cognee.add(s3_data_path, dataset_name="s3-files")
+    await vecnadb.add(s3_data_path, dataset_name="s3-files")
     """
-    await cognee.add(
+    await vecnadb.add(
         [
             "Audi is a German car manufacturer",
             "The Netherlands is next to Germany",
@@ -64,7 +64,7 @@ async def main():
         dataset_name="s3-files",
     )
 
-    await cognee.cognify(datasets=["s3-files"])
+    await vecnadb.cognify(datasets=["s3-files"])
 
     # Put Processing end signal into the queues to stop the consumers
     await add_nodes_and_edges_queue.put.aio(QueueSignal.STOP)

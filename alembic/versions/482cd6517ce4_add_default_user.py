@@ -10,7 +10,7 @@ from typing import Sequence, Union
 
 from sqlalchemy.util import await_only
 
-from cognee.modules.users.methods import create_default_user, delete_user
+from vecnadb.modules.users.methods import create_default_user, delete_user
 
 from fastapi_users.exceptions import UserAlreadyExists
 

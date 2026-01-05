@@ -9,8 +9,8 @@ from distributed.signal import QueueSignal
 from distributed.modal_image import image
 from distributed.queues import add_data_points_queue
 
-from cognee.shared.logging_utils import get_logger
-from cognee.infrastructure.databases.vector import get_vector_engine
+from vecnadb.shared.logging_utils import get_logger
+from vecnadb.infrastructure.databases.vector import get_vector_engine
 
 logger = get_logger("data_point_saving_worker")
 
