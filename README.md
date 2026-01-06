@@ -8,6 +8,16 @@
 
 ---
 
+## Project Origin and Direction
+
+VecnaDB originated as a fork of the Cognee project. While Cognee focuses on application-level cognitive tooling, VecnaDB is evolving toward a database-centric system that natively integrates vector search, graph structures, and ontological reasoning.
+
+The long-term goal of VecnaDB is to provide a foundational data layer for ontology-driven AI systems, with first-class support for hybrid vector-graph workloads and reasoning-oriented query patterns.
+
+As development progresses, VecnaDB will increasingly diverge architecturally and conceptually from Cognee.
+
+---
+
 ## What is VecnaDB?
 
 VecnaDB is not a memory store, chat history tool, or embedding-only database.
