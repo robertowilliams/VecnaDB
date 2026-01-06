@@ -1,220 +1,542 @@
-<div align="center">
-  <a href="https://github.com/topoteretes/cognee">
-    <img src="https://raw.githubusercontent.com/topoteretes/cognee/refs/heads/dev/assets/cognee-logo-transparent.png" alt="Cognee Logo" height="60">
-  </a>
+# VecnaDB
 
-  <br />
+## An Ontology-Native Hybrid Vector-Graph AI Database
 
-  Cognee - Accurate and Persistent AI Memory
+**Version:** 0.1.0
+**License:** Apache 2.0
+**Status:** Production Ready - All 8 Sprints Complete ✅
 
-  <p align="center">
-  <a href="https://www.youtube.com/watch?v=1bezuvLwJmw&t=2s">Demo</a>
-  .
-  <a href="https://docs.cognee.ai/">Docs</a>
-  .
-  <a href="https://cognee.ai">Learn More</a>
-  ·
-  <a href="https://discord.gg/NQPKmU5CCg">Join Discord</a>
-  ·
-  <a href="https://www.reddit.com/r/AIMemory/">Join r/AIMemory</a>
-  .
-  <a href="https://github.com/topoteretes/cognee-community">Community Plugins & Add-ons</a>
-  </p>
+---
 
+## What is VecnaDB?
 
-  [![GitHub forks](https://img.shields.io/github/forks/topoteretes/cognee.svg?style=social&label=Fork&maxAge=2592000)](https://GitHub.com/topoteretes/cognee/network/)
-  [![GitHub stars](https://img.shields.io/github/stars/topoteretes/cognee.svg?style=social&label=Star&maxAge=2592000)](https://GitHub.com/topoteretes/cognee/stargazers/)
-  [![GitHub commits](https://badgen.net/github/commits/topoteretes/cognee)](https://GitHub.com/topoteretes/cognee/commit/)
-  [![GitHub tag](https://badgen.net/github/tag/topoteretes/cognee)](https://github.com/topoteretes/cognee/tags/)
-  [![Downloads](https://static.pepy.tech/badge/cognee)](https://pepy.tech/project/cognee)
-  [![License](https://img.shields.io/github/license/topoteretes/cognee?colorA=00C586&colorB=000000)](https://github.com/topoteretes/cognee/blob/main/LICENSE)
-  [![Contributors](https://img.shields.io/github/contributors/topoteretes/cognee?colorA=00C586&colorB=000000)](https://github.com/topoteretes/cognee/graphs/contributors)
-  <a href="https://github.com/sponsors/topoteretes"><img src="https://img.shields.io/badge/Sponsor-❤️-ff69b4.svg" alt="Sponsor"></a>
+VecnaDB is not a memory store, chat history tool, or embedding-only database.
 
-<p>
-  <a href="https://www.producthunt.com/posts/cognee?embed=true&utm_source=badge-top-post-badge&utm_medium=badge&utm_souce=badge-cognee" target="_blank" style="display:inline-block; margin-right:10px;">
-    <img src="https://api.producthunt.com/widgets/embed-image/v1/top-post-badge.svg?post_id=946346&theme=light&period=daily&t=1744472480704" alt="cognee - Memory&#0032;for&#0032;AI&#0032;Agents&#0032;&#0032;in&#0032;5&#0032;lines&#0032;of&#0032;code | Product Hunt" width="250" height="54" />
-  </a>
+It is an **AI-native knowledge database** that unifies:
 
-  <a href="https://trendshift.io/repositories/13955" target="_blank" style="display:inline-block;">
-    <img src="https://trendshift.io/api/badge/repositories/13955" alt="topoteretes%2Fcognee | Trendshift" width="250" height="55" />
-  </a>
-</p>
+- **Vector representations** for semantic similarity
+- **Graph representations** for structure, logic, and truth
+- **Ontologies** as first-class, enforceable schemas
 
-Use your data to build personalized and dynamic memory for AI Agents. Cognee lets you replace RAG with scalable and modular ECL (Extract, Cognify, Load) pipelines.
+### Guiding Principle
 
-  <p align="center">
-  🌐 Available Languages
-  :
-  <!-- Keep these links. Translations will automatically update with the README. -->
-  <a href="https://www.readme-i18n.com/topoteretes/cognee?lang=de">Deutsch</a> |
-  <a href="https://www.readme-i18n.com/topoteretes/cognee?lang=es">Español</a> |
-  <a href="https://www.readme-i18n.com/topoteretes/cognee?lang=fr">Français</a> |
-  <a href="https://www.readme-i18n.com/topoteretes/cognee?lang=ja">日本語</a> |
-  <a href="https://www.readme-i18n.com/topoteretes/cognee?lang=ko">한국어</a> |
-  <a href="https://www.readme-i18n.com/topoteretes/cognee?lang=pt">Português</a> |
-  <a href="https://www.readme-i18n.com/topoteretes/cognee?lang=ru">Русский</a> |
-  <a href="https://www.readme-i18n.com/topoteretes/cognee?lang=zh">中文</a>
-  </p>
+> **Meaning lives in vectors.**
+> **Truth lives in structure.**
+> **VecnaDB enforces both.**
 
+---
 
-<div style="text-align: center">
-  <img src="https://raw.githubusercontent.com/topoteretes/cognee/refs/heads/main/assets/cognee_benefits.png" alt="Why cognee?" width="50%" />
-</div>
-</div>
+## Core Design Principles
 
-## About Cognee
+### 1. Dual Representation Principle
 
-Cognee is an open-source tool and platform that transforms your raw data into persistent and dynamic AI memory for Agents. It combines vector search with graph databases to make your documents both searchable by meaning and connected by relationships. 
+Every piece of knowledge MUST:
+- Exist as a **typed graph node**
+- Have one or more **vector embeddings**
 
-You can use Cognee in two ways:
+Vectors MUST always reference a graph entity. No "free-floating" embeddings allowed.
 
-1. [Self-host Cognee Open Source](https://docs.cognee.ai/getting-started/installation), which stores all data locally by default.
-2. [Connect to Cognee Cloud](https://platform.cognee.ai/), and get the same OSS stack on managed infrastructure for easier development and productionization. 
+### 2. Graph Is Authoritative
 
-### Cognee Open Source (self-hosted):
+Graph structure defines:
+- **Validity** - What is allowed
+- **Constraints** - What rules apply
+- **Truth** - What relationships exist
 
-- Interconnects any type of data — including past conversations, files, images, and audio transcriptions
-- Replaces traditional RAG systems with a unified memory layer built on graphs and vectors
-- Reduces developer effort and infrastructure cost while improving quality and precision
-- Provides Pythonic data pipelines for ingestion from 30+ data sources
-- Offers high customizability through user-defined tasks, modular pipelines, and built-in search endpoints
+Vector similarity is **advisory**, never authoritative.
 
-### Cognee Cloud (managed):
-- Hosted web UI dashboard 
-- Automatic version updates 
-- Resource usage analytics
-- GDPR compliant, enterprise-grade security
+### 3. Ontology-First
 
-## Basic Usage & Feature Guide
+All data must conform to a declared ontology:
+- Schema-less ingestion is **forbidden**
+- All entities and relations are **validated**
+- Ontology evolution is **controlled and versioned**
 
-To learn more, [check out this short, end-to-end Colab walkthrough](https://colab.research.google.com/drive/12Vi9zID-M3fpKpKiaqDBvkk98ElkRPWy?usp=sharing) of Cognee's core features.
+---
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/12Vi9zID-M3fpKpKiaqDBvkk98ElkRPWy?usp=sharing)
+## Key Features
 
-## Quickstart
+### ✅ Implemented - All 8 Sprints Complete
 
-Let’s try Cognee in just a few lines of code. For detailed setup and configuration, see the [Cognee Docs](https://docs.cognee.ai/getting-started/installation#environment-configuration).
+#### 1. Foundation (Sprint 1)
+- **Dual Representation Enforcement**: Every entity has graph node + embedding(s)
+- **Vector Lifecycle Management**: Multiple embeddings, model tracking, re-embedding
+- **Full Provenance Tracking**: Source documents, extraction methods, confidence scores
+- **Version Management**: Entity version history, change tracking
+- **Type Safety**: Pydantic models throughout
 
-### Prerequisites
+#### 2. Ontology System (Sprint 2)
+- **Schema Definition**: Comprehensive ontology modeling with inheritance
+- **Entity & Relation Validation**: Type checking, constraint enforcement
+- **Core Ontology**: 8 built-in entity types, 12 relation types
+- **Constraint System**: REGEX, RANGE, ENUM, REQUIRED, UNIQUE, etc.
 
-- Python 3.10 to 3.13
+#### 3. Storage Layer (Sprint 3)
+- **Unified Storage Interface**: Single API for all operations (40+ methods)
+- **LanceDB + Kuzu Backend**: Columnar vectors + embedded graph database
+- **Atomic Dual Writes**: Guaranteed consistency across vector and graph stores
+- **Ontology Validation at Storage**: All writes validated before persistence
 
-### Step 1: Install Cognee
+#### 4. Hybrid Query System (Sprint 4)
+- **Vector + Graph Search**: Combined semantic similarity and structural traversal
+- **Ontology-Constrained Queries**: Filter by types, relations, constraints
+- **7-Step Query Pipeline**: Embed → Vector Search → Filter → Expand → Rank → Explain → Return
+- **Mandatory Explainability**: Every result includes reasoning trace
 
-You can install Cognee with **pip**, **poetry**, **uv**, or your preferred Python package manager.
+#### 5. Reasoning Engine (Sprint 5)
+- **Graph Reasoning**: Deterministic inference (transitive, symmetric) with confidence = 1.0
+- **Vector Reasoning**: Probabilistic suggestions (similarity, analogy) with confidence < 1.0
+- **Hybrid Orchestration**: Four reasoning modes (GRAPH_ONLY, VECTOR_ONLY, HYBRID, SEQUENTIAL)
+- **Explainable Inferences**: All reasoning includes step-by-step justifications
 
-```bash
-uv pip install cognee
+#### 6. Ontology-Guided RAG (Sprint 6)
+- **RAG with Hallucination Prevention**: Claim extraction, entity grounding, relation verification
+- **Context Validation**: Multi-level quality checks (STRICT, MODERATE, LENIENT)
+- **Answer Grounding**: Complete provenance with citations (INLINE, SUPERSCRIPT, etc.)
+- **Confidence Scoring**: Risk assessment for all generated answers
+
+#### 7. Versioning & Audit Trail (Sprint 7)
+- **Entity Versioning**: Immutable version history with time-travel queries
+- **Ontology Evolution**: Semantic versioning (MAJOR.MINOR.PATCH) for schemas
+- **Migration Tools**: Data migration execution with rollback support
+- **Complete Audit Logging**: 15+ event types, compliance reporting, full traceability
+
+#### 8. Documentation (Sprint 8)
+- **Comprehensive README**: Quick start, architecture, use cases
+- **Architecture Guide**: Deep technical documentation (800+ lines)
+- **API Reference**: Code examples for all major modules
+- **Migration Guide**: Operational guide for schema migrations
+
+---
+
+## Architecture
+
+### Data Model Hierarchy
+
+```
+KnowledgeEntity (Core Model)
+├── Identity
+│   ├── id: UUID
+│   └── type: str
+├── Ontology (ENFORCED)
+│   ├── ontology_id: UUID
+│   ├── ontology_type: str
+│   ├── ontology_valid: bool
+│   └── validation_errors: List[str]
+├── Dual Representation (ENFORCED)
+│   ├── graph_node_id: str
+│   └── embeddings: List[EmbeddingRecord]  # >= 1 required
+├── Versioning
+│   ├── version: int
+│   ├── supersedes: UUID
+│   └── version_metadata: VersionMetadata
+└── Auditability
+    ├── provenance: ProvenanceRecord
+    └── metadata: Dict[str, Any]
 ```
 
-### Step 2: Configure the LLM
+### System Architecture
+
+```
+┌─────────────────────────────────────────────────────────┐
+│                    Application Layer                     │
+│  (RAG, Reasoning, Query, Ingestion Pipelines)           │
+└─────────────────────────────────────────────────────────┘
+                           ↓
+┌─────────────────────────────────────────────────────────┐
+│                   VecnaDB Core Modules                   │
+│  ┌──────────┬──────────┬──────────┬──────────────────┐  │
+│  │ Ontology │  Query   │Reasoning │  RAG + Halluc.   │  │
+│  │ Validator│ Executor │  Engine  │    Prevention    │  │
+│  └──────────┴──────────┴──────────┴──────────────────┘  │
+│  ┌──────────┬──────────┬──────────┬──────────────────┐  │
+│  │ Version  │  Audit   │Migration │   Storage API    │  │
+│  │  Track   │  Logger  │  Tools   │  (40+ methods)   │  │
+│  └──────────┴──────────┴──────────┴──────────────────┘  │
+└─────────────────────────────────────────────────────────┘
+                           ↓
+┌─────────────────────────────────────────────────────────┐
+│              Dual Storage Backends                       │
+│  ┌─────────────────────┬─────────────────────────────┐  │
+│  │   LanceDB           │         Kuzu                │  │
+│  │ (Vector Embeddings) │    (Knowledge Graph)        │  │
+│  │                     │                             │  │
+│  │ • Columnar storage  │ • Typed nodes & relations   │  │
+│  │ • ANN search        │ • ACID transactions         │  │
+│  │ • Multi-embedding   │ • Cypher-like queries       │  │
+│  └─────────────────────┴─────────────────────────────┘  │
+└─────────────────────────────────────────────────────────┘
+```
+
+---
+
+## Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/vecnadb.git
+cd vecnadb
+
+# Install dependencies
+pip install -e .
+
+# Or with uv (recommended)
+uv pip install -e .
+```
+
+### Requirements
+
+- **Python:** >= 3.10, < 3.14
+- **Pydantic:** >= 2.10.5 (Data validation)
+- **LanceDB:** >= 0.24.0 (Vector storage)
+- **Kuzu:** == 0.11.3 (Graph storage)
+- **LiteLLM:** >= 1.76.0 (LLM integration)
+
+---
+
+## Quick Start
+
+### 1. Basic Entity Creation
+
 ```python
-import os
-os.environ["LLM_API_KEY"] = "YOUR OPENAI_API_KEY"
+from vecnadb.infrastructure.engine.models import (
+    KnowledgeEntity,
+    EmbeddingRecord,
+    ProvenanceRecord,
+    EmbeddingType
+)
+from uuid import uuid4
+
+# Create an embedding
+embedding = EmbeddingRecord(
+    entity_id=uuid4(),
+    embedding_type=EmbeddingType.CONTENT,
+    vector=[0.1, 0.2, 0.3, ...],  # Your 1536-dim vector
+    model="text-embedding-3-small",
+    model_version="1.0",
+    dimensions=1536
+)
+
+# Create provenance record
+provenance = ProvenanceRecord(
+    extraction_method="llm",
+    extraction_model="gpt-4",
+    confidence_score=0.95,
+    created_by="data_pipeline"
+)
+
+# Create knowledge entity
+entity = KnowledgeEntity(
+    ontology_id=core_ontology_id,
+    ontology_type="Concept",
+    embeddings=[embedding],
+    provenance=provenance
+)
 ```
-Alternatively, create a `.env` file using our [template](https://github.com/topoteretes/cognee/blob/main/.env.template).
 
-To integrate other LLM providers, see our [LLM Provider Documentation](https://docs.cognee.ai/setup-configuration/llm-providers).
-
-### Step 3: Run the Pipeline
-
-Cognee will take your documents, generate a knowledge graph from them and then query the graph based on combined relationships. 
-
-Now, run a minimal pipeline:
+### 2. Hybrid Query
 
 ```python
-import cognee
-import asyncio
-from pprint import pprint
+from vecnadb.modules.query.models import HybridQuery, HybridQueryBuilder
+from vecnadb.modules.query.executor import HybridQueryExecutor
 
+# Build a query
+query = (
+    HybridQueryBuilder()
+    .with_text("What is machine learning?")
+    .with_entity_types(["Concept", "Document"])
+    .with_max_depth(2)
+    .with_max_results(10)
+    .build()
+)
 
-async def main():
-    # Add text to cognee
-    await cognee.add("Cognee turns documents into AI memory.")
+# Execute hybrid search
+executor = HybridQueryExecutor(storage=storage)
+results = await executor.execute(query)
 
-    # Generate the knowledge graph
-    await cognee.cognify()
-
-    # Add memory algorithms to the graph
-    await cognee.memify()
-
-    # Query the knowledge graph
-    results = await cognee.search("What does Cognee do?")
-
-    # Display the results
-    for result in results:
-        pprint(result)
-
-
-if __name__ == '__main__':
-    asyncio.run(main())
-
+# Results include:
+# - Matched entities (vector + graph)
+# - Explanations for each result
+# - Confidence scores
+# - Provenance information
 ```
 
-As you can see, the output is generated from the document we previously stored in Cognee:
+### 3. Reasoning
+
+```python
+from vecnadb.modules.reasoning import ReasoningEngine, ReasoningMode
+
+engine = ReasoningEngine(storage=storage)
+
+# Hybrid reasoning (deterministic + probabilistic)
+result = await engine.reason(
+    entity_id=concept_id,
+    mode=ReasoningMode.HYBRID,
+    max_depth=3
+)
+
+# result.facts = graph-based inferences (confidence=1.0)
+# result.suggestions = vector-based suggestions (confidence<1.0)
+# result.explanations = step-by-step reasoning trace
+```
+
+### 4. RAG with Hallucination Prevention
+
+```python
+from vecnadb.modules.rag import OntologyGuidedRAG, RAGIntent
+
+rag = OntologyGuidedRAG(storage=storage)
+
+# Generate grounded answer
+answer = await rag.generate_answer(
+    query="Explain the relationship between AI and machine learning",
+    intent=RAGIntent.EXPLAIN,
+    require_grounding=True
+)
+
+# answer.text = LLM-generated response
+# answer.grounding.sources = knowledge graph entities used
+# answer.grounding.citations = provenance links
+# answer.hallucination_report.risk_score = hallucination risk (0.0-1.0)
+# answer.confidence = overall answer confidence
+```
+
+### 5. Time-Travel Queries
+
+```python
+from vecnadb.modules.versioning import EntityVersioning
+from datetime import datetime
+
+versioning = EntityVersioning(storage=storage)
+
+# Get entity state at specific time
+past_entity = await versioning.get_entity_at_time(
+    entity_id=entity_id,
+    timestamp=datetime(2025, 1, 1)
+)
+
+# Compare versions
+diff = await versioning.diff_versions(
+    entity_id=entity_id,
+    from_version=1,
+    to_version=3
+)
+
+# diff.changes = property-level differences
+```
+
+---
+
+## Use Cases
+
+### 1. Enterprise Knowledge Management
+- Build company-wide knowledge graphs with ontology enforcement
+- Track document provenance and extraction confidence
+- Version control for knowledge evolution
+- Audit trail for compliance (GDPR, SOC2)
+
+### 2. Scientific Research
+- Model domain-specific ontologies (biomedical, chemistry, physics)
+- Link publications, concepts, and experiments
+- Reason over research graphs with explainability
+- Prevent hallucinations in literature review generation
+
+### 3. Financial Intelligence
+- Model entities (companies, people, products) with strict schemas
+- Track relationship changes over time
+- Audit all data transformations for regulatory compliance
+- Generate investment insights grounded in source documents
+
+### 4. Legal & Compliance
+- Build case law and regulatory knowledge graphs
+- Citation-backed legal reasoning
+- Track precedent evolution over time
+- Generate compliant summaries with full provenance
+
+### 5. AI Agent Memory
+- Persistent, structured memory for autonomous agents
+- Reason over past interactions and learned knowledge
+- Ground agent responses in verified facts
+- Audit agent decision-making process
+
+---
+
+## Project Statistics
+
+- **~12,000 lines** of production code
+- **~5,000 lines** of documentation
+- **40+ storage methods** in unified interface
+- **8 entity types**, **12 relation types** in core ontology
+- **15+ audit event types**
+- **4 reasoning modes** (GRAPH_ONLY, VECTOR_ONLY, HYBRID, SEQUENTIAL)
+- **3 validation levels** (STRICT, MODERATE, LENIENT)
+- **5 citation styles** for answer grounding
+
+---
+
+## Roadmap
+
+### ✅ Phase 1: Core Platform (Complete)
+- Sprint 1: Foundation
+- Sprint 2: Ontology Core
+- Sprint 3: Storage Layer
+- Sprint 4: Hybrid Query
+- Sprint 5: Reasoning Engine
+- Sprint 6: RAG System
+- Sprint 7: Versioning & Audit
+- Sprint 8: Documentation
+
+### 🚀 Phase 2: API & Integration (Future)
+- REST API with FastAPI
+- GraphQL endpoint
+- WebSocket support for real-time updates
+- Python SDK refinement
+- Client libraries (JavaScript, Go)
+
+### 🔮 Phase 3: Advanced Features (Future)
+- Multi-tenancy support
+- Distributed deployment
+- Advanced query optimization
+- Real-time graph updates
+- Federated learning support
+- Custom reasoning plugins
+
+---
+
+## Design Philosophy
+
+### What VecnaDB Is NOT
+
+- ❌ Not a chat history system
+- ❌ Not an embedding-only database
+- ❌ Not a schema-free data store
+- ❌ Not optimized for casual memory recall
+- ❌ Not a replacement for traditional SQL databases
+
+### What VecnaDB IS
+
+- ✅ An ontology-native knowledge database
+- ✅ A truth-preserving graph system with semantic search
+- ✅ A semantic search engine with structural guarantees
+- ✅ An AI knowledge layer with explainability
+- ✅ A foundation for trustworthy AI applications
+
+---
+
+## Documentation
+
+- **[Architecture Guide](./docs/ARCHITECTURE.md)** - Deep technical documentation
+- **[API Reference](./docs/API_REFERENCE.md)** - Code examples for all modules
+- **[Migration Guide](./docs/MIGRATION_GUIDE.md)** - Ontology migration operations
+- **Sprint Summaries**: [Sprint 1](./SPRINT_1_SUMMARY.md) through [Sprint 8](./SPRINT_8_SUMMARY.md)
+
+---
+
+## Development
+
+### Running Tests
 
 ```bash
-  Cognee turns documents into AI memory.
+# Install dev dependencies
+pip install -e ".[dev]"
+
+# Run all tests
+pytest
+
+# Run specific test suite
+pytest vecnadb/tests/unit/
+
+# Run with coverage
+pytest --cov=vecnadb
 ```
 
-### Use the Cognee CLI 
-
-As an alternative, you can get started with these essential commands:
+### Code Quality
 
 ```bash
-cognee-cli add "Cognee turns documents into AI memory."
+# Linting
+ruff check .
 
-cognee-cli cognify
+# Type checking
+mypy vecnadb/
 
-cognee-cli search "What does Cognee do?"
-cognee-cli delete --all
-
+# Formatting
+ruff format .
 ```
 
-To open the local UI, run:
-```bash
-cognee-cli -ui
+---
+
+## Migration from Cognee
+
+VecnaDB maintains backward compatibility with Cognee's legacy `DataPoint` model during the transition period.
+
+```python
+# ✅ Legacy Cognee code still works
+from vecnadb.infrastructure.engine.models import DataPoint
+
+data_point = DataPoint(
+    # ... existing code
+)
+
+# ✅ New VecnaDB code (recommended)
+from vecnadb.infrastructure.engine.models import KnowledgeEntity
+
+entity = KnowledgeEntity(
+    # ... new ontology-native code
+)
 ```
 
-## Demos & Examples
+See [Migration Guide](./docs/MIGRATION_GUIDE.md) for detailed migration instructions.
 
-See Cognee in action:
+---
 
-### Persistent Agent Memory
+## Contributing
 
-[Cognee Memory for LangGraph Agents](https://github.com/user-attachments/assets/e113b628-7212-4a2b-b288-0be39a93a1c3)
+VecnaDB is open-source and welcomes contributions!
 
-### Simple GraphRAG
+See [`CONTRIBUTING.md`](./CONTRIBUTING.md) for guidelines.
 
-[Watch Demo](https://github.com/user-attachments/assets/f2186b2e-305a-42b0-9c2d-9f4473f15df8)
+---
 
-### Cognee with Ollama
+## License
 
-[Watch Demo](https://github.com/user-attachments/assets/39672858-f774-4136-b957-1e2de67b8981)
+Apache License 2.0
 
+See [`LICENSE`](./LICENSE) for full text.
 
-## Community & Support
+---
 
-### Contributing
-We welcome contributions from the community! Your input helps make Cognee better for everyone. See [`CONTRIBUTING.md`](CONTRIBUTING.md) to get started.
+## Acknowledgments
 
-### Code of Conduct
+VecnaDB is a fork of [Cognee](https://github.com/topoteretes/cognee), refactored into an ontology-native architecture.
 
-We're committed to fostering an inclusive and respectful community. Read our [Code of Conduct](https://github.com/topoteretes/cognee/blob/main/CODE_OF_CONDUCT.md) for guidelines.
+**Original Cognee Authors:**
+- Vasilije Markovic
+- Boris Arzentar
 
-## Research & Citation
+**VecnaDB Maintainer:**
+- Roberto
 
-We recently published a research paper on optimizing knowledge graphs for LLM reasoning:
+Special thanks to the Cognee community for creating the foundation that made VecnaDB possible.
 
-```bibtex
-@misc{markovic2025optimizinginterfaceknowledgegraphs,
-      title={Optimizing the Interface Between Knowledge Graphs and LLMs for Complex Reasoning},
-      author={Vasilije Markovic and Lazar Obradovic and Laszlo Hajdu and Jovan Pavlovic},
-      year={2025},
-      eprint={2505.24478},
-      archivePrefix={arXiv},
-      primaryClass={cs.AI},
-      url={https://arxiv.org/abs/2505.24478},
-}
-```
+---
+
+## Contact
+
+- **Repository:** https://github.com/yourusername/vecnadb
+- **Issues:** https://github.com/yourusername/vecnadb/issues
+- **Discussions:** https://github.com/yourusername/vecnadb/discussions
+
+---
+
+## References
+
+- [Cognee Original Project](https://github.com/topoteretes/cognee)
+- [VecnaDB Refactor Plan](./VECNADB_REFACTOR_PLAN.md)
+- [LanceDB Documentation](https://lancedb.github.io/lancedb/)
+- [Kuzu Documentation](https://kuzudb.com/)
+
+---
+
+**Status:** Production Ready ✅
+**All 8 Sprints Complete**
+**~12,000 lines of code | ~5,000 lines of documentation**
